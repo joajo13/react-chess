@@ -2,6 +2,18 @@ import { useMemo, useRef, useState } from "react";
 import "./Counter.css";
 import { TbSettings, TbReload, TbPlayerStop } from "react-icons/tb";
 
+const ConfigPanel = () => {
+  return (
+    <div className="config-card">
+      <label htmlFor="1">Set time</label>
+      <input type="text" id="1" placeholder="seconds..." />
+      <label htmlFor="2">Set extra time</label>
+      <input type="text" id="2" placeholder="seconds..." />
+      <button>Set</button>
+    </div>
+  );
+};
+
 export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
   const [counter1, setCounter1] = useState({
     value: initialState,
@@ -12,6 +24,7 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
     isCounting: false,
   });
   const [isStarted, setIsStarted] = useState(false);
+  const [isOnConfig, setIsOnConfig] = useState(false);
   const intervalRef = useRef(null);
 
   const onStart = (counter) => {
@@ -86,6 +99,10 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
     setIsStarted(false);
   };
 
+  const onSetting = () => {
+    setIsOnConfig(!isOnConfig);
+  };
+
   const convertToTime = useMemo(() => {
     return (value) => {
       const minutes = Math.floor(value / 60);
@@ -107,12 +124,13 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
           <TbPlayerStop size="30px" />
         </button>
         <button>
-          <TbSettings size="30px" />
+          <TbSettings size="30px" onClick={onSetting} />
         </button>
         <button>
-          <TbReload size="30px" />
+          <TbReload size="30px" onClick={onReset} />
         </button>
       </div>
+      {isOnConfig ? <ConfigPanel /> : null}
       <button
         className={`button ${counter2.isCounting ? "is-counting" : ""}`}
         onClick={handleCounterClickCounter2}
