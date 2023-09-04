@@ -5,7 +5,7 @@ import { CounterChess } from "./components/CounterChess";
 function App() {
   return (
     <>
-      <CounterChess />
+      <Counter />
     </>
   );
 }

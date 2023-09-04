@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState } from "react";
 import "./Counter.css";
+import { TbSettings, TbReload, TbPlayerStop } from "react-icons/tb";
 
-export const Counter = ({ initialState = 0, extraSecs }) => {
+export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
   const [counter1, setCounter1] = useState({
     value: initialState,
     isCounting: false,
@@ -23,10 +24,6 @@ export const Counter = ({ initialState = 0, extraSecs }) => {
     }
 
     if (counter === "counter2") {
-      if (counter2 === 0) {
-        clearInterval(intervalRef.current);
-        return;
-      }
       setCounter2((c) => ({ ...c, isCounting: true }));
       intervalRef.current = setInterval(() => {
         setCounter2((c) => ({ ...c, value: c.value - 1 }));
@@ -38,12 +35,16 @@ export const Counter = ({ initialState = 0, extraSecs }) => {
   const onStop = (type) => {
     clearInterval(intervalRef.current);
     if (type === "counter1") {
-      setCounter1((c) => ({ ...c, isCounting: false }));
-      onStart("counter2");
+      setCounter1((c) => ({
+        isCounting: false,
+        value: c.value + parseInt(extraSecs),
+      }));
     }
     if (type === "counter2") {
-      setCounter2((c) => ({ ...c, isCounting: false }));
-      onStart("counter1");
+      setCounter2((c) => ({
+        isCounting: false,
+        value: c.value + parseInt(extraSecs),
+      }));
     }
     if (type === "all") {
       setCounter1((c) => ({ ...c, isCounting: false }));
@@ -56,6 +57,7 @@ export const Counter = ({ initialState = 0, extraSecs }) => {
     if (isStarted) {
       if (counter2.isCounting) {
         onStop("counter2");
+        onStart("counter1");
       } else {
         return;
       }
@@ -68,12 +70,20 @@ export const Counter = ({ initialState = 0, extraSecs }) => {
     if (isStarted) {
       if (counter1.isCounting) {
         onStop("counter1");
+        onStart("counter2");
       } else {
         return;
       }
     } else {
       onStart("counter2");
     }
+  };
+
+  const onReset = () => {
+    onStop("all");
+    setCounter1((c) => ({ ...c, value: initialState }));
+    setCounter2((c) => ({ ...c, value: initialState }));
+    setIsStarted(false);
   };
 
   const convertToTime = useMemo(() => {
@@ -86,10 +96,27 @@ export const Counter = ({ initialState = 0, extraSecs }) => {
 
   return (
     <div className="container">
-      <button className="button" onClick={handleCounterClickCounter1}>
+      <button
+        className={`button ${counter1.isCounting ? "is-counting" : ""}`}
+        onClick={handleCounterClickCounter1}
+      >
         {convertToTime(counter1.value)}
       </button>
-      <button className="button" onClick={handleCounterClickCounter2}>
+      <div className="options-container">
+        <button onClick={() => onStop("all")}>
+          <TbPlayerStop size="30px" />
+        </button>
+        <button>
+          <TbSettings size="30px" />
+        </button>
+        <button>
+          <TbReload size="30px" />
+        </button>
+      </div>
+      <button
+        className={`button ${counter2.isCounting ? "is-counting" : ""}`}
+        onClick={handleCounterClickCounter2}
+      >
         {convertToTime(counter2.value)}
       </button>
     </div>

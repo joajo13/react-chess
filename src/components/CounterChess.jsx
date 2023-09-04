@@ -6,10 +6,15 @@ import { TbPlayerPlay, TbReload, TbPlayerPause } from "react-icons/tb";
 export const CounterChess = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [counterInitialState, setCounterInitialState] = useState(0);
+  const [extraSecs, setExtraSecs] = useState(0);
   const [isSetted, setisSetted] = useState(false);
 
   const onTimeChange = (e) => {
     setCounterInitialState(e.target.value);
+  };
+
+  const onExtraSecondsChange = (e) => {
+    setExtraSecs(e.target.value);
   };
 
   const onPlayClick = () => {
@@ -31,7 +36,13 @@ export const CounterChess = () => {
               onChange={onTimeChange}
             />
             <label htmlFor="2">Extra seconds</label>
-            <input type="number" placeholder="0s..." id="2" />
+            <input
+              type="number"
+              placeholder="0s..."
+              id="2"
+              value={extraSecs}
+              onChange={onExtraSecondsChange}
+            />
           </form>
         </div>
         <div className="handle-container">
@@ -46,7 +57,9 @@ export const CounterChess = () => {
       </div>
       <button onClick={() => setisSetted(true)}>Set</button>
 
-      {isSetted ? <Counter initialState={counterInitialState} /> : null}
+      {isSetted ? (
+        <Counter initialState={counterInitialState} extraSecs={extraSecs} />
+      ) : null}
     </div>
   );
 };
