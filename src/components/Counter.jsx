@@ -1,27 +1,39 @@
 import { useMemo, useRef, useState } from "react";
 import "./Counter.css";
-import { TbSettings, TbReload, TbPlayerStop } from "react-icons/tb";
+import { TbSettings, TbReload, TbPlayerStop, TbX } from "react-icons/tb";
 
-const ConfigPanel = () => {
+const ConfigPanel = ({ onExit, onSet }) => {
+  const timeRef = useRef();
+  const extraTimeRef = useRef();
   return (
     <div className="config-card">
+      <button className="button-x" onClick={onExit}>
+        <TbX size="25px" />
+      </button>
       <label htmlFor="1">Set time</label>
-      <input type="text" id="1" placeholder="seconds..." />
+      <input ref={timeRef} type="text" id="1" placeholder="seconds..." />
       <label htmlFor="2">Set extra time</label>
-      <input type="text" id="2" placeholder="seconds..." />
-      <button>Set</button>
+      <input ref={extraTimeRef} type="text" id="2" placeholder="seconds..." />
+      <button
+        className="button-set"
+        onClick={() => onSet(extraTimeRef.current.value, timeRef.current.value)}
+      >
+        Set
+      </button>
     </div>
   );
 };
 
-export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
+export const Counter = ({ initialState = 120 }) => {
   const [counter1, setCounter1] = useState({
     value: initialState,
     isCounting: false,
+    extraSecs: 0,
   });
   const [counter2, setCounter2] = useState({
     value: initialState,
     isCounting: false,
+    extraSecs: 0,
   });
   const [isStarted, setIsStarted] = useState(false);
   const [isOnConfig, setIsOnConfig] = useState(false);
@@ -49,14 +61,16 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
     clearInterval(intervalRef.current);
     if (type === "counter1") {
       setCounter1((c) => ({
+        ...c,
         isCounting: false,
-        value: c.value + parseInt(extraSecs),
+        value: c.value + parseInt(c.extraSecs),
       }));
     }
     if (type === "counter2") {
       setCounter2((c) => ({
+        ...c,
         isCounting: false,
-        value: c.value + parseInt(extraSecs),
+        value: c.value + parseInt(c.extraSecs),
       }));
     }
     if (type === "all") {
@@ -101,6 +115,25 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
 
   const onSetting = () => {
     setIsOnConfig(!isOnConfig);
+    onStop("all");
+  };
+
+  const onSetConfig = (extraTime, time) => {
+    setIsOnConfig(false);
+    setCounter1({
+      value: time,
+      isCounting: false,
+      extraSecs: extraTime,
+    });
+    setCounter2({
+      value: time,
+      isCounting: false,
+      extraSecs: extraTime,
+    });
+  };
+
+  const onExitConfig = () => {
+    setIsOnConfig(false);
   };
 
   const convertToTime = useMemo(() => {
@@ -116,6 +149,8 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
       <button
         className={`button ${counter1.isCounting ? "is-counting" : ""}`}
         onClick={handleCounterClickCounter1}
+        disabled={isOnConfig}
+        style={isOnConfig ? { cursor: "default" } : {}}
       >
         {convertToTime(counter1.value)}
       </button>
@@ -130,10 +165,14 @@ export const Counter = ({ initialState = 120, extraSecs = 0 }) => {
           <TbReload size="30px" onClick={onReset} />
         </button>
       </div>
-      {isOnConfig ? <ConfigPanel /> : null}
+      {isOnConfig ? (
+        <ConfigPanel onExit={onExitConfig} onSet={onSetConfig} />
+      ) : null}
       <button
         className={`button ${counter2.isCounting ? "is-counting" : ""}`}
         onClick={handleCounterClickCounter2}
+        disabled={isOnConfig}
+        style={isOnConfig ? { cursor: "default" } : {}}
       >
         {convertToTime(counter2.value)}
       </button>
