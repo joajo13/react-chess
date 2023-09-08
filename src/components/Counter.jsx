@@ -1,6 +1,25 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useReducer, useRef, useState } from "react";
 import "./Counter.css";
 import { TbSettings, TbReload, TbPlayerStop, TbX } from "react-icons/tb";
+// import { counterReducer } from "./CounterWithReducer/counterReducer";
+// import { ACTIONS } from "./CounterWithReducer/ACTIONS";
+
+// const initialCounters = [
+//   {
+//     counter1: {
+//       id: "1",
+//       value: 120,
+//       isCounting: false,
+//       extraSecs: 0,
+//     },
+//     counter2: {
+//       id: "2",
+//       value: 120,
+//       isCounting: false,
+//       extraSecs: 0,
+//     },
+//   },
+// ];
 
 const ConfigPanel = ({ onExit, onSet }) => {
   const timeRef = useRef();
@@ -25,6 +44,8 @@ const ConfigPanel = ({ onExit, onSet }) => {
 };
 
 export const Counter = ({ initialState = 120 }) => {
+  // const [counters, dispatch] = useReducer(counterReducer, initialCounters);
+
   const [counter1, setCounter1] = useState({
     value: initialState,
     isCounting: false,
@@ -38,6 +59,15 @@ export const Counter = ({ initialState = 120 }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [isOnConfig, setIsOnConfig] = useState(false);
   const intervalRef = useRef(null);
+
+  // const handleStart = (counter) => {
+  //   const type =
+  //     counter.id === "1" ? ACTIONS.START_COUNTER_1 : ACTIONS.START_COUNTER_2;
+  //   const action = {
+  //     type: type,
+  //     payload: counter,
+  //   };
+  // };
 
   const onStart = (counter) => {
     if (counter === "counter1") {

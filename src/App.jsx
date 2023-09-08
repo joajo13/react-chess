@@ -1,11 +1,11 @@
 import "./App.css";
 import { Counter } from "./components/Counter";
-import { CounterChess } from "./components/CounterChess";
+import { CounterWithReducer } from "./components/CounterWithReducer/CounterWithReducer";
 
 function App() {
   return (
     <>
-      <Counter />
+      <CounterWithReducer />
     </>
   );
 }
