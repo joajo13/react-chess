@@ -30,12 +30,12 @@ export const Counter = () => {
         name="counter1"
         onClick={(e) => handleClick(e.target)}
         className={`button ${
-          counters.counter1.isCounting ? "is-counting" : ""
+          counters.counter2.isCounting ? "is-counting" : ""
         }`}
         disabled={counters.onSettings}
         style={counters.onSettings ? { cursor: "default" } : {}}
       >
-        {convertToTime(countRender.counter1)}
+        <span className="text r">{convertToTime(countRender.counter1)}</span>
       </button>
 
       <Settings
@@ -53,12 +53,12 @@ export const Counter = () => {
         onClick={(e) => handleClick(e.target)}
         name="counter2"
         className={`button ${
-          counters.counter2.isCounting ? "is-counting" : ""
+          counters.counter1.isCounting ? "is-counting" : ""
         }`}
         disabled={counters.onSettings}
         style={counters.onSettings ? { cursor: "default" } : {}}
       >
-        {convertToTime(countRender.counter2)}
+        <span className="text">{convertToTime(countRender.counter2)}</span>
       </button>
     </div>
   );

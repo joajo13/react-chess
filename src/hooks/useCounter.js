@@ -34,6 +34,8 @@ export const useCounter = () => {
     const handleClick = ({ name }) => {
         clearInterval(intervalRef.current);
 
+        if (counters.onPause) return;
+
         if (counters.finish) {
             return;
         }
@@ -52,16 +54,25 @@ export const useCounter = () => {
             }
         }
 
-        intervalRef.current = setInterval(() => {
-            setCountRender((state) => ({
-                ...state,
-                [name]: state[name] - 1,
-            }));
-        }, 1000);
+        if (name === "counter1") {
+            intervalRef.current = setInterval(() => {
+                setCountRender((state) => ({
+                    ...state,
+                    counter2: state.counter2 - 1,
+                }));
+            }, 1000);
+        } else {
+            intervalRef.current = setInterval(() => {
+                setCountRender((state) => ({
+                    ...state,
+                    counter1: state.counter1 - 1,
+                }));
+            }, 1000);
+        }
 
         const action = {
             type:
-                name === "counter1" ? ACTIONS.START_COUNTER1 : ACTIONS.START_COUNTER2,
+                name === "counter1" ? ACTIONS.START_COUNTER2 : ACTIONS.START_COUNTER1,
             payload: countRender,
         };
 
@@ -69,10 +80,27 @@ export const useCounter = () => {
     };
 
     const handlePlayClick = () => {
-        if (counters.counter1.isCounting || counters.counter2.isCounting) {
-            clearInterval(intervalRef.current);
-            dispatch({ type: ACTIONS.PAUSE, payload: countRender });
+        if (!counters.counter1.isCounting && !counters.counter2.isCounting) {
+            return;
         }
+
+        if (counters.onPause) {
+
+            if (counters.counter1.isCounting) {
+                intervalRef.current = setInterval(() => {
+                    setCountRender((state) => ({ ...state, counter1: state.counter1 - 1 }))
+                }, 1000)
+            } else {
+                intervalRef.current = setInterval(() => {
+                    setCountRender((state) => ({ ...state, counter2: state.counter2 - 1 }))
+                }, 1000)
+            }
+
+        } else {
+            clearInterval(intervalRef.current);
+        }
+
+        dispatch({ type: ACTIONS.PAUSE, payload: countRender });
     };
 
     const handleResetClick = () => {

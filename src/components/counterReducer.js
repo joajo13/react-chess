@@ -3,7 +3,6 @@ import { ACTIONS } from "../ACTIONS";
 export const counterReducer = (state, action) => {
     const { type, payload } = action;
 
-
     switch (type) {
 
         case ACTIONS.START_COUNTER1:
@@ -38,21 +37,21 @@ export const counterReducer = (state, action) => {
                 }
             }
 
-        case ACTIONS.STOP:
-            return {
-                ...state,
-                onPause: true,
-                counter1: {
-                    ...state.counter1,
-                    value: payload.counter1,
-                    isCounting: false
-                },
-                counter2: {
-                    ...state.counter2,
-                    value: payload.counter2,
-                    isCounting: false
-                }
-            }
+        // case ACTIONS.STOP:
+        //     return {
+        //         ...state,
+        //         onPause: true,
+        //         counter1: {
+        //             ...state.counter1,
+        //             value: payload.counter1,
+        //             isCounting: false
+        //         },
+        //         counter2: {
+        //             ...state.counter2,
+        //             value: payload.counter2,
+        //             isCounting: false
+        //         }
+        //     }
 
         case ACTIONS.RESET:
             return payload
