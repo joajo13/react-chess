@@ -7,7 +7,7 @@ export const ConfigPanel = ({ onClose, onSet }) => {
     <div className="config-card slide-top ">
       <h2>Settings</h2>
       <button className="button-x" onClick={onClose}>
-        <img src="/public/icons/close.svg" />
+        <img src="/icons/close.svg" />
       </button>
       <input ref={timeRef} type="number" id="1" placeholder="Time..." min={0} />
       <input
