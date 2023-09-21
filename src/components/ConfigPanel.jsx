@@ -4,31 +4,24 @@ export const ConfigPanel = ({ onClose, onSet }) => {
   const timeRef = useRef();
   const extraTimeRef = useRef();
   return (
-    <div className="config-card scale-up-center ">
+    <div className="config-card slide-top ">
+      <h2>Settings</h2>
       <button className="button-x" onClick={onClose}>
-        <img src="/src/assets/close.svg" />
+        <img src="/public/icons/close.svg" />
       </button>
-      <label htmlFor="1">Set time</label>
-      <input
-        ref={timeRef}
-        type="text"
-        id="1"
-        placeholder="seconds..."
-        min={0}
-      />
-      <label htmlFor="2">Set extra time</label>
+      <input ref={timeRef} type="number" id="1" placeholder="Time..." min={0} />
       <input
         ref={extraTimeRef}
         type="text"
         id="2"
-        placeholder="seconds..."
+        placeholder="Extra time..."
         min={0}
       />
       <button
         className="button-set"
         onClick={() => onSet(timeRef.current.value, extraTimeRef.current.value)}
       >
-        Set
+        Done
       </button>
     </div>
   );

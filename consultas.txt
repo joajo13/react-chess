@@ -1,1 +1,4 @@
-Debe sumarse despues de la pausa o debo controlarlo?
+a veces inicia mal el conteo.
+como mejorar la redistribucion del css para que se vea bien en todos los dispositivos.
+como puedo hacer para eque el contador comience a decrecer desde el numero que se le indique, si son 1:30 que comience desde 1:29 y no desde 1:30.
+por que no aparecen los svg en el deploy de vercel, pero si en el localhost.

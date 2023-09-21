@@ -100,11 +100,9 @@ export const counterReducer = (state, action) => {
                 finish: true,
                 counter1: {
                     ...state.counter1,
-                    isCounting: false,
                 },
                 counter2: {
                     ...state.counter2,
-                    isCounting: false,
                 }
             }
 

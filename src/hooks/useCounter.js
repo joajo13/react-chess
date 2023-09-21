@@ -44,17 +44,17 @@ export const useCounter = () => {
             if (name === "counter1") {
                 setCountRender((state) => ({
                     ...state,
-                    counter2: Number(counters.extraSecs) + state.counter2,
+                    counter2: Number(state.counter2) + Number(counters.extraSecs),
                 }));
             } else {
                 setCountRender((state) => ({
                     ...state,
-                    counter1: Number(counters.extraSecs) + state.counter1,
+                    counter1: Number(state.counter1) + Number(counters.extraSecs),
                 }));
             }
         }
 
-        if (name === "counter1") {
+        if (name == "counter1") {
             intervalRef.current = setInterval(() => {
                 setCountRender((state) => ({
                     ...state,
@@ -80,9 +80,9 @@ export const useCounter = () => {
     };
 
     const handlePlayClick = () => {
-        if (!counters.counter1.isCounting && !counters.counter2.isCounting) {
-            return;
-        }
+        if (counters.finish) return;
+
+        if (!counters.counter1.isCounting && !counters.counter2.isCounting) return;
 
         if (counters.onPause) {
 
@@ -122,6 +122,7 @@ export const useCounter = () => {
     };
 
     const handleCloseSettings = () => {
+        handlePlayClick();
         dispatch({ type: ACTIONS.SETTINGS });
     };
 

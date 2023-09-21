@@ -1,8 +1,8 @@
-import { useMemo } from "react";
 import "./Counter.css";
 import { Settings } from "./Settings";
 import { ConfigPanel } from "./ConfigPanel";
 import { useCounter } from "../hooks/useCounter";
+import { useMemo } from "react";
 
 export const Counter = () => {
   const {
@@ -24,14 +24,25 @@ export const Counter = () => {
     };
   }, []);
 
+  const { finish } = counters;
+  const { isCounting: isCounting1 } = counters.counter1;
+  const { isCounting: isCounting2 } = counters.counter2;
+
+  const buttonClass = {
+    counter1: `button ${isCounting2 ? "is-counting" : ""} ${
+      finish && isCounting1 ? "finish" : ""
+    }`,
+    counter2: `button ${isCounting1 ? "is-counting" : ""} ${
+      finish && isCounting2 ? "finish" : ""
+    }`,
+  };
+
   return (
     <div className="container">
       <button
         name="counter1"
         onClick={(e) => handleClick(e.target)}
-        className={`button ${
-          counters.counter2.isCounting ? "is-counting" : ""
-        }`}
+        className={buttonClass.counter1}
         disabled={counters.onSettings}
         style={counters.onSettings ? { cursor: "default" } : {}}
       >
@@ -52,9 +63,7 @@ export const Counter = () => {
       <button
         onClick={(e) => handleClick(e.target)}
         name="counter2"
-        className={`button ${
-          counters.counter1.isCounting ? "is-counting" : ""
-        }`}
+        className={buttonClass.counter2}
         disabled={counters.onSettings}
         style={counters.onSettings ? { cursor: "default" } : {}}
       >

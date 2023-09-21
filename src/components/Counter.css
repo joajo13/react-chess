@@ -3,16 +3,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  row-gap: 2.5rem;
+  row-gap: 2rem;
   min-width: 200px;
-  max-width: 450px;
 }
 
 input {
   background-color: rgb(48, 48, 48);
+  margin-top: 5px;
   border: none;
   border-radius: 5px;
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
   width: 25%;
@@ -24,12 +25,12 @@ input {
   cursor: pointer;
   font-size: 24px;
   outline: none;
-  color: #242424;
-  background-color: white;
+  color: #ffffff;
+  background-color: #01c489;
   border: none;
   border-radius: 5px;
   min-height: 35vh;
-  box-shadow: 0 8px #95a5a6;
+  box-shadow: 0 8px #007954;
   width: 100%;
 }
 
@@ -49,6 +50,12 @@ input {
   transition: 0.2s;
 }
 
+.button.finish {
+  background-color: #ce2121;
+  box-shadow: 0 -4px #911616;
+  transition: 0.2s;
+}
+
 .options-container {
   display: flex;
   flex-direction: row;
@@ -58,16 +65,21 @@ input {
 }
 
 .options-container button {
-  background-color: #21ce99;
-  padding: 5px;
-  border-radius: 5px;
-  box-shadow: 0 4px #16916c;
+  padding: 0;
+  background: none;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
+}
+
+.options-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .options-container button:hover {
