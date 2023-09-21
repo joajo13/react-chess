@@ -67,7 +67,8 @@ export const counterReducer = (state, action) => {
                 ...state,
                 started: false,
                 onSettings: false,
-                extraSecs: payload.extraSecs || state.extraSecs,
+                onPause: false,
+                extraSecs: payload.extraSecs || 0,
                 counter1: {
                     ...state.counter1,
                     value: payload.value || state.counter1.value,

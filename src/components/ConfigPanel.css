@@ -14,10 +14,11 @@
   bottom: 0px;
   width: 85%;
   max-width: 500px;
+  padding-bottom: 200px;
 }
 
 .slide-top {
-  animation: slide-top 0.05s linear both;
+  animation: slide-top 0.1s linear both;
 }
 @keyframes slide-top {
   0% {
@@ -25,6 +26,18 @@
   }
   100% {
     transform: translateY(0px);
+  }
+}
+
+.slide-bottom {
+  animation: slide-bottom 0.1s linear both;
+}
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100px);
   }
 }
 
@@ -36,11 +49,14 @@
 }
 
 .config-card button {
+  margin-top: 15px;
   border: none;
   align-items: center;
   cursor: pointer;
 }
-
+.config-card button.disabled {
+  pointer-events: none;
+}
 .button-set {
   display: flex;
   border-radius: 5px;

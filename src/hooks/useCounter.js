@@ -119,14 +119,18 @@ export const useCounter = () => {
     const handleSettingsClick = () => {
         clearInterval(intervalRef.current);
         dispatch({ type: ACTIONS.SETTINGS });
+        handlePlayClick();
     };
 
     const handleCloseSettings = () => {
-        handlePlayClick();
         dispatch({ type: ACTIONS.SETTINGS });
     };
 
     const handleNewValues = (value, extraSecs) => {
+        if (value === 0 && extraSecs === 0) {
+            dispatch({ type: ACTIONS.SETTINGS });
+            return;
+        }
         setCountRender((state) => ({
             counter1: value || state.counter1,
             counter2: value || state.counter2,
