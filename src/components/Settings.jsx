@@ -8,16 +8,16 @@ export const Settings = ({
     <div className="options-container">
       <button onClick={handlePlayClick}>
         {counters.onPause ? (
-          <img src="/public/icons/play.svg" />
+          <img src="/icons/play.svg" />
         ) : (
-          <img src="/public/icons/stop.svg" />
+          <img src="/icons/stop.svg" />
         )}
       </button>
       <button onClick={handleSettingsClick}>
-        <img src="/public/icons/settings.svg" />
+        <img src="/icons/settings.svg" />
       </button>
       <button onClick={handleResetClick}>
-        <img src="/public/icons/restart.svg" />
+        <img src="/icons/restart.svg" />
       </button>
     </div>
   );
