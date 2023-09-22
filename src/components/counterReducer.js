@@ -56,12 +56,12 @@ export const counterReducer = (state, action) => {
                 extraSecs: payload.extraSecs || 0,
                 counter1: {
                     ...state.counter1,
-                    value: payload.value || state.counter1.value,
+                    value: payload.value || 300,
                     isCounting: false
                 },
                 counter2: {
                     ...state.counter2,
-                    value: payload.value || state.counter2.value,
+                    value: payload.value || 300,
                     isCounting: false
                 }
             }

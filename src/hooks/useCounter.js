@@ -50,7 +50,7 @@ export const useCounter = () => {
 
                 setCountRender((state) => ({
                     ...state,
-                    counter1: Number(state.counter2) + Number(counters.extraSecs),
+                    counter1: Number(state.counter1) + Number(counters.extraSecs),
                 }));
             } else {
                 clearInterval(intervalRef.current);
@@ -61,7 +61,7 @@ export const useCounter = () => {
 
                 setCountRender((state) => ({
                     ...state,
-                    counter2: Number(state.counter1) + Number(counters.extraSecs),
+                    counter2: Number(state.counter2) + Number(counters.extraSecs),
                 }));
             }
         }
@@ -139,6 +139,7 @@ export const useCounter = () => {
     };
 
     const handleNewValues = (value, extraSecs) => {
+        clearInterval(intervalRef.current);
         if (value === 0 && extraSecs === 0) {
             dispatch({ type: ACTIONS.SETTINGS });
             return;
