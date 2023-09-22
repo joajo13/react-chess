@@ -42,22 +42,22 @@ export const useCounter = () => {
 
         if (counters.started) {
             if (name === "counter1") {
-                clearInterval(intervalRef.current);
 
                 if (counters.counter2.isCounting) {
                     return;
                 }
+                clearInterval(intervalRef.current);
 
                 setCountRender((state) => ({
                     ...state,
                     counter1: Number(state.counter1) + Number(counters.extraSecs),
                 }));
             } else {
-                clearInterval(intervalRef.current);
 
                 if (counters.counter1.isCounting) {
                     return;
                 }
+                clearInterval(intervalRef.current);
 
                 setCountRender((state) => ({
                     ...state,
@@ -131,7 +131,6 @@ export const useCounter = () => {
     const handleSettingsClick = () => {
         clearInterval(intervalRef.current);
         dispatch({ type: ACTIONS.SETTINGS });
-        handlePlayClick();
     };
 
     const handleCloseSettings = () => {

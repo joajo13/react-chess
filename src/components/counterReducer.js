@@ -44,6 +44,7 @@ export const counterReducer = (state, action) => {
             return {
                 ...state,
                 onSettings: !state.onSettings,
+                onPause: true,
             }
 
         case ACTIONS.SETNEW:
