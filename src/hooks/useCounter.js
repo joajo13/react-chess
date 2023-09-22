@@ -43,23 +43,25 @@ export const useCounter = () => {
         if (counters.started) {
             if (name === "counter1") {
                 clearInterval(intervalRef.current);
+
                 if (counters.counter2.isCounting) {
                     return;
                 }
 
                 setCountRender((state) => ({
                     ...state,
-                    counter2: Number(state.counter2) + Number(counters.extraSecs),
+                    counter1: Number(state.counter2) + Number(counters.extraSecs),
                 }));
             } else {
                 clearInterval(intervalRef.current);
+
                 if (counters.counter1.isCounting) {
                     return;
                 }
 
                 setCountRender((state) => ({
                     ...state,
-                    counter1: Number(state.counter1) + Number(counters.extraSecs),
+                    counter2: Number(state.counter1) + Number(counters.extraSecs),
                 }));
             }
         }
