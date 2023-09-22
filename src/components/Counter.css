@@ -91,3 +91,53 @@ input {
   scale: 0.9;
   transition: 0.2s;
 }
+
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    min-width: 200px;
+  }
+
+  .button {
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+    outline: none;
+    color: #ffffff;
+    background-color: #01c489;
+    border: none;
+    border-radius: 5px;
+    height: 90vh;
+    box-shadow: 0 8px #007954;
+  }
+
+  .options-container {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 0px;
+    width: 350px;
+    justify-content: center;
+    align-items: center;
+  }
+  .text {
+    font-size: 60px;
+    font-weight: 500;
+  }
+
+  .r {
+    transform: rotate(0deg);
+  }
+
+  .options-container button {
+    padding: 0;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+  }
+}

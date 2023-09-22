@@ -24,17 +24,17 @@ export const Counter = () => {
     };
   }, []);
 
-  const { finish } = counters;
-  const { isCounting: isCounting1 } = counters.counter1;
-  const { isCounting: isCounting2 } = counters.counter2;
-
   const buttonClass = {
-    counter1: `button ${isCounting2 ? "is-counting" : ""} ${
-      finish && isCounting1 ? "finish" : ""
-    }`,
-    counter2: `button ${isCounting1 ? "is-counting" : ""} ${
-      finish && isCounting2 ? "finish" : ""
-    }`,
+    counter1:
+      `button ${
+        counters.counter2.isCounting && !counters.finish ? "is-counting" : ""
+      } ${counters.finish && counters.counter1.isCounting ? "finish" : ""}` ||
+      "button is-counting",
+    counter2:
+      `button ${
+        counters.counter1.isCounting && !counters.finish ? "is-counting" : ""
+      } ${counters.finish && counters.counter2.isCounting ? "finish" : ""}` ||
+      "button is-counting",
   };
 
   return (
@@ -44,7 +44,7 @@ export const Counter = () => {
         onClick={(e) => handleClick(e.target)}
         className={buttonClass.counter1}
         disabled={counters.onSettings}
-        style={counters.onSettings ? { cursor: "default" } : {}}
+        style={counters.onSettings ? { pointerEvents: "none" } : {}}
       >
         <span className="text r">{convertToTime(countRender.counter1)}</span>
       </button>

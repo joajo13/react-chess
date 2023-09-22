@@ -37,22 +37,6 @@ export const counterReducer = (state, action) => {
                 }
             }
 
-        // case ACTIONS.STOP:
-        //     return {
-        //         ...state,
-        //         onPause: true,
-        //         counter1: {
-        //             ...state.counter1,
-        //             value: payload.counter1,
-        //             isCounting: false
-        //         },
-        //         counter2: {
-        //             ...state.counter2,
-        //             value: payload.counter2,
-        //             isCounting: false
-        //         }
-        //     }
-
         case ACTIONS.RESET:
             return payload
 
@@ -65,6 +49,7 @@ export const counterReducer = (state, action) => {
         case ACTIONS.SETNEW:
             return {
                 ...state,
+                finish: false,
                 started: false,
                 onSettings: false,
                 onPause: false,
